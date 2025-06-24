@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPSMUN - Crisis Committee</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <style>
+    /* Hero Section */
+.hero-full {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+.hero-full::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(120deg,rgba(24,20,28,0.98) 60%,rgba(212,175,55,0.08) 100%), url('images/crisis-hero.jpg') center center / cover no-repeat;
+  filter: brightness(0.95);
+}
+.hero-overlay-text {
+  position: relative;
+  z-index: 1;
+  background: rgba(24,20,28,0.92);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px #18141c33;
+  padding: 3rem 2.5rem;
+  max-width: 700px;
+  margin: 2.5rem auto;
+  text-align: center;
+  color: #fff4e6;
+  font-family: 'Playfair Display', serif;
+}
+.hero-overlay-text h1 {
+  font-size: 2.6rem;
+  color: #d4af37;
+  margin-bottom: 1rem;
+  letter-spacing: 0.01em;
+}
+.hero-overlay-text p {
+  font-size: 1.25rem;
+  color: #ffe6b3;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+/* Section Block (Committee Style) */
+.section-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  background: linear-gradient(120deg,rgba(24,20,28,0.98) 60%,rgba(212,175,55,0.08) 100%);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px #18141c33;
+  margin: 3rem auto;
+  padding: 3rem 2.5rem;
+  max-width: 1200px;
+  overflow: visible;
+  border: none;
+  position: relative;
+  z-index: 1;
+}
+.section-block:nth-child(even) {
+  flex-direction: row-reverse;
+}
+.section-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 260px;
+  min-height: 220px;
+}
+.section-image img {
+  width: 92%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: cover;
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px #18141c55, 0 2px 12px #fff4e622;
+  border: 6px solid #fff;
+  background: #fff;
+  filter: grayscale(0.08) brightness(1.08) contrast(1.08);
+  transition: filter 0.3s, box-shadow 0.3s;
+  max-height: 340px;
+  min-height: 180px;
+}
+.section-block:hover .section-image img {
+  filter: grayscale(0) brightness(1.13) contrast(1.13);
+  box-shadow: 0 16px 48px #d4af3722, 0 2px 12px #fff4e655;
+}
+.section-text {
+  flex: 1.2;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem 2rem;
+}
+.section-text h2 {
+  color: #d4af37;
+  font-size: 2rem;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 1rem;
+  letter-spacing: 0.01em;
+}
+.section-text p {
+  color: #fff4e6;
+  font-size: 1.13rem;
+  line-height: 1.7;
+  margin-bottom: 2.2rem;
+}
+.section-text a {
+  display: inline-block;
+  margin-top: 1rem;
+  background: #d4af37;
+  color: #301934;
+  padding: 0.8rem 2.1rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px #d4af3733;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.section-text a:hover {
+  background: #cda634;
+  color: #fff4e6;
+}
+
+/* Responsive Styles */
+@media (max-width: 900px) {
+  .section-block,
+  .section-block:nth-child(even) {
+    flex-direction: column;
+    min-height: 0;
+    margin-bottom: 2.2rem;
+    padding: 1.5rem 0.7rem;
+    gap: 1.5rem;
+  }
+  .section-image,
+  .section-block:nth-child(even) .section-image {
+    min-width: 0;
+    max-width: 100%;
+    padding: 0;
+  }
+  .section-image img,
+  .section-block:nth-child(even) .section-image img {
+    border-radius: 0 0 2rem 2rem !important;
+    margin: 0 !important;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    max-height: 220px;
+    min-width: 0;
+    border: 4px solid #fff;
+  }
+  .section-text {
+    padding: 0.7rem 0.2rem;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .hero-overlay-text {
+    padding: 2rem 1rem;
+    max-width: 98vw;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- Navigation (insert your nav HTML here) -->
+  <header class="navbar-wrapper luxury-header">
+  <div class="header-inner" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+    <a href="index.html" class="logo" id="logo-menu" aria-label="Home" style="margin-bottom:1.2rem;">
+      <img src="images/logo 3 backgroundless.png" alt="SPSMUN Logo">
+    </a>
+    <div class="nav-toggle-container" style="position:absolute;top:1.5rem;right:2rem;">
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+    <nav class="main-nav" id="main-nav">
+      <ul class="nav-links">
+        <li class="nav-item has-dropdown">
+          <a href="about.html">About</a>
+          <ul class="dropdown">
+            <li><a href="sec-gen_letter.html">Sec-Gen’s Letter</a></li>
+            <li><a href="secreteriat.html">Secretariat</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="committees.html">Committees</a>
+          <ul class="dropdown">
+            <li><a href="wto.html">WTO</a></li>
+            <li><a href="csw.html">CSW</a></li>
+            <li><a href="unhrc.html">UNHRC</a></li>
+            <li><a href="unsc.html">UNSC</a></li>
+            <li><a href="crisis.html">CRISIS</a></li>
+            <li><a href="loksabha.html">Lok Sabha</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="conference.html">Conference</a>
+          <ul class="dropdown">
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="conference-policies.html">Conference Policies</a></li>
+            <li><a href="journal.html">Journal</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="delegate-resources.html">Delegate Resources</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="registration.html">Apply</a>
+          <ul class="dropdown">
+            <li><a href="form.html">Form 1</a></li>
+            <li><a href="form2.html">Form 2</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <!-- Hero Section -->
+  <section class="hero-full">
+    <div class="hero-overlay-text" data-aos="fade-up">
+      <h1>Crisis Committee</h1>
+      <p>
+        Kashmir Declares Independence: <span style="color:#d4af37;">India’s war cabinet must decide — retaliate or reconcile?</span>
+      </p>
+      <div style="margin-top:2.5rem;">
+        <a href="#committee-desc" style="background:#d4af37;color:#301934;padding:0.9rem 2.2rem;border-radius:2rem;font-weight:700;box-shadow:0 2px 8px #d4af3733;text-decoration:none;transition:background 0.2s;">Learn More ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Committee Description -->
+  <section id="committee-desc" class="section-block" data-aos="fade-up">
+    <div class="section-text">
+      <h2>Kashmir’s Independence Crisis</h2>
+      <p>
+        In a historic turn, Kashmir has declared independence with China’s backing and the world watching in silence.<br>
+        India’s war cabinet faces a defining moment: Should it retaliate to reclaim control, or seek reconciliation to avoid escalation?<br>
+        <span style="color:#d4af37;font-weight:600;">Delegates must navigate military, diplomatic, and humanitarian challenges in real time as the crisis unfolds.</span>
+      </p>
+      <a href="registration.html">Register Now</a>
+    </div>
+  </section>
+
+  <!-- Section 2: Background Guide -->
+  <section class="section-block" data-aos="fade-up">
+    <div class="section-text">
+      <h2>Background Guide</h2>
+      <p>
+        The declaration of independence by Pakistan Occupied Kashmir (POK), with
+explicit support from China, marks a critical juncture in regional geopolitics.
+This development threatens to destabilize the already volatile South Asian
+landscape, raising concerns about territorial integrity, sovereignty, and the risk
+of armed conflict. China’s backing, rooted in strategic interests and the China-
+Pakistan Economic Corridor, introduces a new dimension to the longstanding
+Kashmir dispute, complicating diplomatic efforts and challenging the authority
+of international legal frameworks. Delegates in this cabinet crisis committee
+must navigate a complex web of alliances, historical grievances, and competing
+national interests. The agenda requires urgent action to assess the legitimacy of
+the declaration, manage potential military escalation, and explore multilateral
+solutions to prevent a full-blown crisis. The committee’s deliberations will test
+the resilience of international diplomacy in the face of shifting power dynamics
+and the assertion of new geopolitical realities.<br>
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <!-- Footer Section -->
+<footer class="spsmun-footer">
+  <div class="footer-container">
+    <p>The website is developed and maintained by the students of Seshadripuram Public School, Bangalore.</p>
+    <p>SPSMUN is the proprietary asset of Seshadripuram Public School.</p>
+    <p>© All Rights Reserved</p>
+    
+    <div class="footer-links">
+      <a href="https://www.instagram.com/spsmun/" target="_blank" aria-label="Instagram" class="social-icon">
+        <svg fill="currentColor" viewBox="0 0 24 24" class="instagram-icon" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 2 .2 2.5.4.6.2 1 .5 1.5 1 .5.5.8.9 1 1.5.2.5.3 1.3.4 2.5.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 2-.4 2.5-.2.6-.5 1-1 1.5-.5.5-.9.8-1.5 1-.5.2-1.3.3-2.5.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-2-.2-2.5-.4-.6-.2-1-.5-1.5-1-.5-.5-.8-.9-1-1.5-.2-.5-.3-1.3-.4-2.5C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-2 .4-2.5.2-.6.5-1 1-1.5.5-.5.9-.8 1.5-1 .5-.2 1.3-.3 2.5-.4C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7 0 5.6.1 4.5.3 3.7.6 2.9.9 2.2 1.4 1.5 2.1.8 2.8.3 3.5 0 4.3-.3 5.1-.1 6.2 0 7.5c.1 1.3.1 1.7.1 4.5s0 3.2-.1 4.5c-.1 1.3-.3 2.4-.6 3.2-.3.8-.8 1.5-1.5 2.2-.7.7-1.4 1.2-2.2 1.5-.8.3-1.9.5-3.2.6C1.3 23.9.9 24 .5 24h-.5c0-.3 0-.7.1-1 .1-1.3.1-1.7.1-4.5s0-3.2-.1-4.5C0 12.3-.2 11.2-.5 10.4-.8 9.6-1.3 8.9-2 8.2c-.7-.7-1.4-1.2-2.2-1.5-.8-.3-1.9-.5-3.2-.6C-7.3 5.1-7.7 5-8 5h.5c.3 0 .7.1 1 .1 1.3.1 1.7.1 4.5.1s3.2 0 4.5-.1c1.3-.1 2.4-.3 3.2-.6.8-.3 1.5-.8 2.2-1.5.7-.7 1.2-1.4 1.5-2.2.3-.8.5-1.9.6-3.2C15.7.9 16 .5 16 0h.5c-.3 0-.7.1-1 .1zM12 5.8A6.2 6.2 0 1 0 18.2 12 6.2 6.2 0 0 0 12 5.8zm0 10.2a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.4-11.9a1.44 1.44 0 1 0 1.44 1.44A1.44 1.44 0 0 0 18.4 4.1z"/>
+        </svg>
+      </a>
+      <a href="#" class="back-to-top" aria-label="Back to top">↑ Back to Top</a>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ duration: 1000, once: true });</script>
+  <script>
+    // Controls the header: hamburger, nav backdrop, submenus, shrink on scroll, hide on scroll down
+document.addEventListener('DOMContentLoaded', () => {
+  const navToggle = document.querySelector('.nav-toggle');
+  const mainNav = document.getElementById('main-nav');
+  const navBackdrop = document.getElementById('nav-backdrop');
+  const header = document.querySelector('.luxury-header');
+  const logoAnim = document.querySelector('.logo-anim');
+  let lastScrollTop = 0;
+
+  // Hamburger menu toggle
+  if (navToggle && mainNav && navBackdrop) {
+    navToggle.addEventListener('click', function () {
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !expanded);
+      mainNav.classList.toggle('show');
+      navBackdrop.classList.toggle('show');
+      this.classList.toggle('open');
+      document.body.classList.toggle('menu-open');
+    });
+
+    // Close nav if backdrop is clicked
+    navBackdrop.addEventListener('click', () => {
+      navToggle.setAttribute('aria-expanded', false);
+      mainNav.classList.remove('show');
+      navBackdrop.classList.remove('show');
+      navToggle.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    });
+  }
+
+  // Toggle submenus on mobile: first click opens, second click follows link
+  document.querySelectorAll('.nav-item.has-dropdown > a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      if (window.innerWidth <= 1024) {
+        const parent = this.parentElement;
+        if (!parent.classList.contains('show-sub')) {
+          e.preventDefault();
+          // Close other open submenus (accordion behavior)
+          document.querySelectorAll('.nav-item.has-dropdown.show-sub').forEach(item => {
+            if (item !== parent) item.classList.remove('show-sub');
+          });
+          parent.classList.add('show-sub');
+        }
+        // If submenu is already open, allow navigation (do not preventDefault)
+      }
+    });
+  });
+
+  // Shrink navbar on scroll
+  if (header) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        header.classList.add('shrink');
+      } else {
+        header.classList.remove('shrink');
+      }
+    });
+  }
+
+  // Hide/show main nav and logo on scroll down/up
+  const mainNavScroll = document.querySelector('.main-nav');
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    if (mainNavScroll) {
+      if (currentScroll > lastScrollTop) {
+        mainNavScroll.classList.add('hidden');
+        if (logoAnim) logoAnim.classList.add('centered', 'hide-title');
+      } else {
+        mainNavScroll.classList.remove('hidden');
+        if (logoAnim) logoAnim.classList.remove('centered', 'hide-title');
+      }
+    }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  });
+});
+  </script>
+</body>
+</html>

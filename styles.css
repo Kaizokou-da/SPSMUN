@@ -1,0 +1,948 @@
+/*
+ * Optimized Responsive CSS Code
+ *
+ * This stylesheet has been refactored following a mobile-first approach,
+ * prioritizing performance, accessibility, and a seamless user experience
+ * across all devices, from small mobile screens to tablets and desktops.
+ *
+ * Key optimization principles applied:
+ * -   **Mobile-First Design:** Base styles are for mobile, and enhancements
+ * are progressively added for larger screens using `min-width` media queries.
+ * -   **Fluid Typography:** Extensive use of `clamp()` for font sizes to ensure
+ * optimal readability and hierarchy across varying screen widths.
+ * -   **Responsive Layouts:** Utilizes Flexbox for flexible and adaptable layouts,
+ * ensuring elements scale gracefully.
+ * -   **Enhanced Touch Targets:** All interactive elements (buttons, links,
+ * hamburger menu) have generous touch target sizes for improved usability
+ * on touch devices.
+ * -   **Performance-Optimized Transitions:** Animations and transitions are
+ * tuned for smoothness, using properties like `transform` where possible
+ * for GPU acceleration. `will-change` is added for key animated elements.
+ * -   **Accessibility Focus:** Attention to keyboard navigation, focus states,
+ * and clear interactive cues.
+ * -   **Code Clarity & Maintainability:** Well-organized, extensively commented
+ * code with consistent naming conventions and removal of redundancies.
+ */
+
+/* --- 1. GLOBAL VARIABLES & FONTS --- */
+/*
+ * Defines global CSS variables for colors, fonts, spacing, and shadows.
+ * Using `:root` for global scope.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;700&display=swap');
+
+:root {
+    --primary: #301934;
+    --accent: #fff4e6;
+    --accent-light: #d4af37; /* Gold-like accent color */
+    --dark: #1b1b1f;
+    --light: #ffffff;
+    --light-bg: #301934; /* Dark background for light theme */
+    --dark-bg: #301934;  /* Same dark background for dark theme - assuming
+                            a dark-themed design with light/dark text switch */
+    --glass-bg: rgba(255, 255, 255, 0.12);
+    --blur: blur(16px);
+    --text-dark: #111;
+    --text-light: #f0f0f0;
+    --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    --card-radius: 1.5rem;
+    --transition-fast: 0.3s ease; /* Common transition duration with ease timing */
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+    --header-height-mobile: 3.8rem; /* Optimized header height for mobile */
+    --header-height-desktop: 5.5rem; /* Optimized header height for desktop */
+}
+
+/* --- 2. RESET + BASE STYLES (Mobile-First Foundation) --- */
+/*
+ * Universal reset for consistent box-model.
+ * Base typography and link styles for smallest screens, progressively
+ * enhanced for larger viewports.
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links for a better user experience */
+    font-size: 16px; /* Base for rem units, 1rem = 16px. Ensures consistent scaling. */
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--light-bg); /* Default theme background */
+    color: var(--text-light); /* Default theme text color (assuming dark background) */
+    line-height: 1.6; /* Optimal line height for readability across devices */
+    overflow-x: hidden; /* Prevent horizontal scrolling, crucial for mobile layout integrity */
+    font-size: clamp(1rem, 4vw, 1.125rem); /* Fluid font sizing: 16px min, 18px max, 4vw in between. Enhances readability on various screens. */
+    letter-spacing: 0.01em;
+    padding-top: var(--header-height-mobile); /* Space for fixed header on mobile */
+    min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease; /* Smooth theme transitions for visual appeal */
+    -webkit-overflow-scrolling: touch; /* Improves scrolling performance on iOS devices */
+    touch-action: manipulation; /* Optimizes touch events for performance, reduces delay */
+    text-rendering: optimizeLegibility; /* Enhances text rendering for better clarity, especially on high-DPI screens */
+    -webkit-font-smoothing: antialiased; /* Smoother font rendering for client visual comfort */
+    -moz-osx-font-smoothing: grayscale; /* Smoother font rendering for client visual comfort on MacOS */
+}
+
+/* Base link styles */
+a {
+    color: inherit; /* Inherit color from parent for consistency */
+    text-decoration: none;
+    position: relative;
+    transition: color var(--transition-fast);
+    /* Adding a subtle hover effect for links for clearer interaction feedback */
+    &:hover {
+        color: var(--accent-light);
+    }
+}
+
+/* List styles for better content presentation */
+ul {
+    list-style-type: disc;
+    padding-left: 1.5rem; /* Standard indentation for lists */
+    margin-bottom: 1rem;
+}
+
+li {
+    color: var(--text-light);
+    padding: 0.5rem 0; /* More compact list items for better use of mobile screen space */
+    font-size: clamp(0.95rem, 3.5vw, 1rem); /* Fluid font sizing for list items */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06); /* Subtle separator for readability */
+}
+
+/* THEME: Light/Dark switch */
+/*
+ * Optimizing theme switching by adjusting only background and text colors.
+ * Ensures a quick and smooth visual change for the user.
+ */
+body.theme-default {
+    background: var(--light-bg);
+    color: var(--text-light); /* Kept text-light for dark background */
+}
+
+body.theme-dark {
+    background: var(--dark-bg);
+    color: var(--text-light); /* Kept text-light for consistency, assuming same dark background */
+}
+
+/* --- 3. HEADER & NAVIGATION SYSTEM (Mobile-First, Critical Focus) --- */
+/*
+ * The header is fixed at the top, ensuring navigation is always accessible.
+ * On mobile, it's a thin bar with logo and hamburger. On desktop, it transforms to a stacked layout.
+ */
+.luxury-header {
+    display: flex;
+    justify-content: space-between; /* Logo left, toggle right on mobile for intuitive layout */
+    align-items: center;
+    /* Optimized: Fluid padding for header on all sides for better balance across various mobile widths */
+    padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1rem, 4vw, 1.5rem);
+    background: #000; /* Solid background for better visibility against page content */
+    color: white;
+    font-family: var(--font-sans); /* Consistent sans-serif font for modern look */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10000; /* Increased Z-index to ensure it's always on top */
+    backdrop-filter: blur(10px); /* Glassmorphism effect for a sleek, modern feel */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
+    transition: padding var(--transition-fast), background-color var(--transition-fast);
+    height: var(--header-height-mobile); /* Fixed height for mobile to prevent layout shifts */
+    will-change: padding, background-color, height; /* Performance hint for smoother animations */
+}
+
+/* Shrinking header behavior on scroll for a dynamic user experience */
+.luxury-header.shrink {
+    padding: clamp(0.3rem, 1.5vw, 0.5rem) clamp(1rem, 4vw, 1.5rem); /* Optimized: Fluid padding when shrunk */
+    background-color: rgba(0, 0, 0, 0.8); /* Slightly more opaque when shrunk for better contrast */
+}
+
+/* Logo styles for brand visibility and clickability */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.6rem, 5vw, 2rem); /* Fluid font size for logo text if any */
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    padding: 0.2rem; /* Small padding around the logo makes it clickable */
+    border-radius: 50%; /* Makes clickable area circular */
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+    height: 3rem; /* Mobile logo height for good visibility without taking too much space */
+    width: 3rem;  /* Mobile logo width */
+    will-change: transform, box-shadow; /* Performance hint for hover effects */
+}
+
+.logo img {
+    height: 100%; /* Image fills logo container */
+    width: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+    transition: transform var(--transition-fast);
+    filter: brightness(1.2); /* Enhance logo visibility */
+}
+
+.logo:hover,
+.logo:focus {
+    transform: scale(1.05); /* Subtle scale effect on hover/focus for interaction feedback */
+    background: rgba(212, 175, 55, 0.12); /* Light accent background */
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15); /* Clear focus ring/hover glow for accessibility */
+    outline: none; /* Remove default outline to use custom one */
+}
+
+/* Navigation Toggle (Hamburger Menu) - Mobile-First for easy access */
+.nav-toggle-container {
+    display: block; /* Always visible on mobile for quick menu access */
+    margin-left: auto; /* Push to the right edge of the header */
+    z-index: 10002; /* Ensure it's above everything else, including menu backdrop */
+}
+
+.nav-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 48px; /* Generous touch target for easy tapping on mobile */
+    height: 48px; /* Generous touch target */
+    border-radius: 50%;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+    padding: 0;
+    box-shadow: none;
+    outline: none;
+    touch-action: manipulation; /* Improves responsiveness of touch events */
+    -webkit-tap-highlight-color: transparent; /* Removes unsightly tap highlight on mobile */
+}
+
+.nav-toggle:focus,
+.nav-toggle:hover {
+    background: rgba(212, 175, 55, 0.18);
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.08);
+    outline: 2px solid var(--accent-light); /* Clear visual feedback on focus/hover */
+}
+
+.nav-toggle span {
+    display: block;
+    /* Optimized: Fluid margin for hamburger bars, maintaining good spacing */
+    margin: clamp(3px, 1vw, 4px) 0;
+    height: 3px; /* Thinner bars for a sleek look */
+    width: 28px; /* Slightly narrower bars */
+    background: var(--accent-light);
+    border-radius: 2px;
+    transition: 0.3s ease; /* Smooth animation for transform when opening/closing */
+    will-change: transform, opacity; /* Performance hint for animations */
+}
+
+/* Hamburger to X animation for clear menu state feedback */
+.nav-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+.nav-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Main Navigation (Mobile Overlay) for a focused menu experience */
+.main-nav {
+    position: fixed;
+    top: 0; /* Explicitly set to top of viewport */
+    left: 0; /* Explicitly set to left of viewport */
+    right: 0;
+    bottom: 0; /* Covers full viewport to create an immersive menu */
+    width: 100vw; /* Ensures full viewport width */
+    height: 100vh; /* Ensures full viewport height */
+    /* Optimized: Fully opaque background for complete content obscuring */
+    background: rgba(20, 20, 20, 1);
+    flex-direction: column;
+    /* Optimized: Center menu items horizontally and vertically within the overlay */
+    align-items: center; /* Centers children horizontally */
+    justify-content: center; /* Centers children vertically */
+    transform: translateY(-100%); /* Hidden by default (slides up smoothly) */
+    opacity: 0;
+    pointer-events: none; /* Prevents interaction when hidden, crucial for underlying page interaction */
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Smooth slide-down/fade-in animation */
+    z-index: 10000; /* Increased Z-index to ensure it's always on top */
+    /* Removed padding-top here as justify-content: center will handle vertical alignment */
+    overflow-y: auto; /* Enable scrolling for long menus on small screens */
+    -webkit-overflow-scrolling: touch; /* Improves scrolling performance on iOS */
+    will-change: transform, opacity; /* Performance hint */
+}
+
+.main-nav.show,
+.main-nav.open {
+    transform: translateY(0); /* Slides down into view */
+    opacity: 1;
+    pointer-events: auto; /* Allows interaction when open */
+}
+
+/* Explicitly hide the nav, allowing separate control from 'show' state */
+.main-nav.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease-in, opacity 0.3s ease-in; /* Slightly faster transition for hiding to feel snappier */
+}
+
+/* Nav Backdrop for Mobile Menu - visually separates menu from background */
+.nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999; /* Ensure backdrop is below the menu but above other content */
+    transition: opacity 0.4s ease;
+    will-change: opacity; /* Performance hint */
+}
+.nav-backdrop.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Body scroll lock when menu is open for a focused navigation experience */
+body.menu-open {
+    overflow: hidden; /* Prevents background scrolling when mobile menu is open */
+    touch-action: none; /* Explicitly disables touch-based scrolling on the body */
+}
+
+/* Navigation Links (Mobile) */
+.nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column; /* Stack links vertically on mobile for easy scanning */
+    /* Optimized: Added a small gap between menu items for better visual separation */
+    gap: 0.25rem;
+    width: 100%; /* Ensure nav-links take full available width to allow centering of items */
+    padding: 1.5rem 1rem; /* Generous padding for the list of links */
+    margin: 0;
+    justify-content: center; /* Center nav-items horizontally */
+}
+
+.nav-item {
+    position: relative;
+    width: 100%; /* Full width for clickable area */
+    font-size: clamp(1.05rem, 4.5vw, 1.2rem); /* Fluid font size for nav items */
+    padding: 0.8rem 0; /* Generous vertical padding for excellent touch target size */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Subtle separator for clarity */
+    /* Optimized: Align text to center within each nav item for mobile */
+    text-align: center;
+}
+
+.nav-item a {
+    display: block; /* Make the whole padding area clickable for better UX */
+    text-decoration: none;
+    color: white;
+    font-size: inherit; /* Inherit fluid font size */
+    position: relative;
+    transition: color var(--transition-fast);
+    padding: 0.5rem 0; /* Internal padding for text alignment */
+}
+
+.nav-item a::after {
+    content: "";
+    position: absolute;
+    /* Optimized: Center the underline as well */
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: var(--accent-light);
+    transition: width 0.4s ease, transform 0.4s ease;
+}
+.nav-item a:hover::after {
+    width: 100%;
+    transform: translateX(-50%); /* Ensure it stays centered on hover */
+}
+
+/* Dropdown Menu (Mobile - expanded on click) */
+/*
+ * Optimized for smoother mobile submenu transitions, preventing jank or clipping.
+ * - `max-height` set to a very large value to ensure all content fits, avoiding unexpected cuts.
+ * - Combined transitions for a single, unified, performant opening animation.
+ */
+.dropdown {
+    position: static; /* No absolute positioning on mobile; behaves like a nested list */
+    background: transparent; /* No background for sub-menu to blend seamlessly */
+    box-shadow: none;
+    flex-direction: column;
+    /* Optimized: Added a small gap between dropdown items for better separation */
+    gap: 0.25rem;
+    padding: 0;
+    /* Optimized: Removed explicit margin-left to center with parent nav-item text */
+    margin-left: 0;
+    min-width: unset; /* No min-width constraint on mobile for fluid layout */
+    z-index: auto; /* Default z-index */
+    pointer-events: auto; /* Always interactive when shown */
+    text-align: center; /* Center the text within dropdown items for mobile */
+
+    /* Properties for smooth transition */
+    max-height: 0;       /* Start hidden (0 height) */
+    opacity: 0;          /* Start transparent */
+    transform: translateY(-0.5rem); /* Start slightly above for a subtle slide-in effect */
+    overflow: hidden;    /* Hide content that exceeds max-height during transition */
+    /* Combined transition for smoothness, prioritizing transform */
+    transition: max-height 0.4s ease-out, opacity 0.4s ease-out, transform 0.4s ease-out;
+    will-change: max-height, opacity, transform; /* Performance hint for smooth animation */
+}
+
+.nav-item.show-sub .dropdown {
+    max-height: 1000px; /* Large enough max-height to ensure all submenu items are fully visible */
+    opacity: 1;          /* Fully visible */
+    transform: translateY(0); /* Slides into place */
+    /* Optimized: Add padding-top to dropdown for better spacing below parent item */
+    padding-top: 0.5rem;
+}
+
+.dropdown a {
+    color: #ccc; /* Slightly muted color for submenu items */
+    font-size: clamp(0.9rem, 3vw, 0.95rem); /* Slightly smaller fluid font size for dropdown items, aids hierarchy */
+    padding: 0.4rem 0; /* More compact dropdown links for better list density */
+    transition: color var(--transition-fast);
+}
+
+.dropdown a:hover {
+    color: white; /* Clear hover state for sub-menu items */
+}
+
+
+/* --- 4. MEDIA QUERIES (Desktop and Tablet Enhancements) --- */
+/*
+ * Styles applied for screens 768px and wider (tablets and desktops).
+ * This section progressively enhances the mobile-first design, adapting for larger screens.
+ */
+@media screen and (min-width: 768px) {
+    body {
+        padding-top: var(--header-height-desktop); /* Adjust padding for desktop header */
+    }
+
+    .luxury-header {
+        flex-direction: column; /* Stack logo above nav for a distinct desktop layout */
+        height: var(--header-height-desktop); /* Larger header height for desktop */
+        padding: 0.5rem 0 0 0; /* Adjust padding for stacked layout */
+        background: rgba(0, 0, 0, 0.95); /* Slightly more opaque background */
+    }
+
+    .luxury-header.shrink {
+        padding: 0.3rem 0;
+        height: calc(var(--header-height-desktop) - 1.5rem); /* More compact when shrunk */
+    }
+
+    .logo {
+        margin-bottom: 0.5rem; /* Space below logo */
+        height: 3.5rem; /* Larger logo on desktop */
+        width: 3.5rem;
+    }
+
+    .logo img {
+        height: 100%;
+        width: 100%;
+    }
+
+    .nav-toggle-container {
+        display: none; /* Hide hamburger on desktop, as full navigation is visible */
+    }
+
+    .main-nav {
+        position: static; /* Not fixed/overlay on desktop for normal flow */
+        transform: none; /* Remove transform */
+        opacity: 1; /* Always visible */
+        pointer-events: auto; /* Always interactive */
+        width: 100%; /* Full width for navigation bar */
+        height: auto; /* Auto height */
+        background: rgba(20, 20, 20, 0.7); /* Translucent background for nav bar */
+        backdrop-filter: blur(10px);
+        box-shadow: none;
+        padding: 0.5rem 1.5rem; /* Horizontal padding for nav items */
+        overflow-y: visible; /* No scrollbar on desktop, allow dropdowns to overflow */
+        flex-direction: row; /* Horizontal navigation for desktop */
+        justify-content: center; /* Center nav links */
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: row; /* Horizontal links */
+        gap: clamp(1.5rem, 3vw, 2.5rem); /* Fluid gap between nav items */
+        width: auto; /* Content-based width */
+        padding: 0;
+    }
+
+    .nav-item {
+        width: auto; /* Auto width */
+        padding: 0; /* No vertical padding */
+        border-bottom: none; /* No separator */
+        text-align: center; /* Ensure nav items are centered on desktop */
+    }
+
+    .nav-item a {
+        padding: 0; /* Remove internal padding */
+    }
+
+    /* Dropdown Menu (Desktop - hover activated) */
+    .dropdown {
+        position: absolute; /* Absolute positioning relative to parent nav-item */
+        top: calc(100% + 0.5rem); /* Position below the parent */
+        left: 50%; /* Center dropdown horizontally relative to parent */
+        transform: translateX(-50%) translateY(10px); /* Center and slightly move down */
+        background: rgba(0, 0, 0, 0.95); /* Dark background */
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        flex-direction: column;
+        gap: 0.5rem;
+        min-width: 12rem; /* Minimum width for dropdown */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        pointer-events: none; /* Not interactive when hidden */
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        z-index: 1000;
+        display: flex; /* Always flex, controlled by opacity/pointer-events */
+        overflow: visible; /* CRITICAL: Ensure content is not clipped on desktop */
+        max-height: unset; /* Remove max-height constraint for desktop, as it's not needed for hover */
+        text-align: center; /* Center the text within desktop dropdown items */
+    }
+
+    .nav-item:hover .dropdown {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0); /* Slides into place, centered */
+        pointer-events: auto;
+    }
+
+    .dropdown a {
+        font-size: 1rem; /* Fixed font size for desktop dropdown */
+    }
+}
+
+/* --- 5. COMPONENT STYLES (Optimized for Responsiveness) --- */
+
+/* Container: responsive padding and max width, centered */
+.container {
+    /* Optimized: Increased minimum side padding to 3rem (1.5rem each side) for better spacing on small screens */
+    width: calc(100% - clamp(3rem, 6vw, 5rem)); /* Dynamic side padding ensures content is never too close to edges */
+    max-width: 1100px; /* Limits content width for readability on very large screens */
+    margin: 2rem auto; /* Centered with vertical margin */
+    padding: clamp(1rem, 4vw, 2rem); /* Fluid internal padding adjusts to screen size */
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 1rem;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 18px rgba(165, 120, 255, 0.04);
+    position: relative;
+    box-sizing: border-box; /* Include padding in width for predictable sizing */
+}
+
+/* Section: flexible vertical spacing for clear content separation */
+section {
+    /* Optimized: Increased minimum side padding to 3rem (1.5rem each side) for better spacing on small screens */
+    width: calc(100% - clamp(3rem, 6vw, 5rem)); /* Dynamic side padding */
+    max-width: 1100px; /* Limits content width for readability on very large screens */
+    margin: clamp(1.5rem, 6vw, 3rem) auto; /* Fluid vertical margin, centered */
+    padding: clamp(1rem, 4vw, 2rem) 0; /* Fluid vertical padding */
+    box-sizing: border-box;
+}
+
+/* Headings: fluid sizing, optimized margins for visual hierarchy and readability */
+h1, .hero-title {
+    font-family: var(--font-serif);
+    color: var(--accent-light);
+    font-size: clamp(2.2rem, 8vw, 3.5rem); /* Larger fluid headings for impact */
+    margin-bottom: clamp(0.6rem, 2vw, 1rem);
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+    word-break: break-word; /* Prevent long words from overflowing on small screens */
+}
+
+h2 { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+h3 { font-size: clamp(1.5rem, 5vw, 2.2rem); }
+h4 { font-size: clamp(1.3rem, 4.5vw, 1.8rem); }
+h5 { font-size: clamp(1.1rem, 4vw, 1.5rem); }
+h6 { font-size: clamp(1rem, 3.5vw, 1.3rem); }
+
+h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    color: var(--accent-light);
+    margin-bottom: clamp(0.4rem, 1.5vw, 0.8rem);
+    margin-top: clamp(0.8rem, 3vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* Paragraphs: optimal line length and spacing for improved readability */
+p, .container p {
+    color: var(--text-light);
+    margin-bottom: clamp(0.8rem, 2.5vw, 1.2rem);
+    font-size: clamp(1rem, 3.5vw, 1.125rem); /* Fluid font sizing */
+    line-height: 1.7;
+    max-width: 70ch; /* Optimal character length for comfortable reading */
+}
+
+/* Buttons: fluid padding, easy to tap, consistent look for intuitive interaction */
+.btn, button, input[type="submit"] {
+    font-size: clamp(1rem, 3.5vw, 1.1rem); /* Fluid button text size */
+    padding: clamp(0.7rem, 2.5vw, 1rem) clamp(1.5rem, 5vw, 2rem); /* Fluid padding */
+    border-radius: 1.8rem; /* Slightly larger radius for visual appeal */
+    border: none;
+    background: linear-gradient(90deg, var(--accent-light) 60%, var(--accent) 100%);
+    color: var(--primary); /* Text color from primary variable for contrast */
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.08);
+    margin: clamp(0.4rem, 1.5vw, 0.8rem); /* Fluid margin */
+    min-width: 140px; /* Minimum width for tapability */
+    min-height: 48px; /* Minimum height for tapability (48x48 recommended by accessibility guidelines) */
+    display: inline-flex; /* Use flex to center content */
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent; /* Improves mobile tap experience */
+}
+.btn:hover, button:hover, input[type="submit"]:hover {
+    background: var(--accent);
+    color: var(--primary);
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.18);
+    transform: translateY(-2px); /* Subtle lift on hover for interaction feedback */
+}
+.btn:active, button:active, input[type="submit"]:active {
+    transform: translateY(0); /* Press down effect for tactile feedback */
+    box-shadow: 0 1px 4px rgba(212, 175, 55, 0.05);
+}
+
+/* Inputs: fluid sizing, clear focus, consistent appearance for forms */
+input, textarea, select {
+    font-size: clamp(1rem, 3.5vw, 1.05rem); /* Fluid font size */
+    padding: clamp(0.6rem, 2vw, 0.8rem) clamp(0.8rem, 3vw, 1rem); /* Fluid padding */
+    border-radius: 0.6rem;
+    border: 1px solid var(--accent-light);
+    background: rgba(255, 255, 255, 0.13);
+    color: var(--text-light); /* Ensure text is visible on dark input */
+    margin-bottom: clamp(0.8rem, 2.5vw, 1.2rem);
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+    width: 100%; /* Full width for better form usability on mobile */
+    max-width: 450px; /* Maximum width for inputs */
+    box-sizing: border-box;
+    -webkit-appearance: none; /* Remove default styling for cross-browser consistency */
+    -moz-appearance: none;
+    appearance: none;
+    line-height: 1.5; /* Ensure text sits nicely */
+}
+input:focus, textarea:focus, select:focus {
+    border: 1.5px solid var(--accent-light);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3); /* Stronger, clear focus ring for accessibility */
+    background: rgba(255,255,255,0.18); /* Slightly lighter background on focus */
+}
+
+/* Lists: more compact spacing for efficient content display */
+ul, ol {
+    padding-left: clamp(1.2rem, 5vw, 2rem);
+    margin-bottom: clamp(0.8rem, 2.5vw, 1.2rem);
+}
+
+/* Cards: flexible, responsive padding, centered for versatile layouts */
+.card {
+    background: rgba(255, 255, 255, 0.09);
+    border-radius: 1rem; /* Slightly larger radius for visual appeal */
+    box-shadow: 0 4px 12px rgba(48, 25, 52, 0.1); /* Stronger but softer shadow */
+    padding: clamp(1rem, 4vw, 1.8rem); /* Fluid internal padding */
+    margin-bottom: clamp(1rem, 4vw, 2rem); /* Fluid bottom margin */
+    display: block; /* Ensures proper margin auto centering */
+    width: 100%; /* Default to full width */
+    max-width: 400px; /* Example max width for a single card in a grid */
+}
+
+/* --- 6. GLOBAL UTILITY CLASSES --- */
+/*
+ * Utility classes for general alignment and responsiveness that can be
+ * applied to various elements, promoting reusability.
+ */
+
+/* Text alignment based on screen size for consistent content presentation */
+.text-center-desktop {
+    text-align: left; /* Default to left on mobile */
+}
+
+@media (min-width: 768px) {
+    .text-center-desktop {
+        text-align: center; /* Center on desktop */
+    }
+}
+
+/* Hides element only on mobile for tailored content display */
+.hidden-mobile {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .hidden-mobile {
+        display: block; /* Or whatever display type is appropriate */
+    }
+}
+
+/* Hides element only on desktop for mobile-specific elements */
+.hidden-desktop {
+    display: block; /* Default to block on mobile */
+}
+
+@media (min-width: 768px) {
+    .hidden-desktop {
+        display: none;
+    }
+}
+
+/* Flex utilities for adaptable layouts */
+.flex-column-mobile {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .flex-column-mobile {
+        flex-direction: row; /* Becomes row on desktop */
+    }
+}
+
+/* Additional accessibility: clear focus outline for keyboard navigation */
+*:focus-visible {
+    outline: 2px solid var(--accent-light);
+    outline-offset: 2px;
+    transition: outline-offset 0.2s ease, outline 0.2s ease; /* Smooth transition for focus state */
+}
+
+/* Ensure images are always responsive to prevent overflow */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* --- OPTIMIZED FLUID LAYOUT, TYPOGRAPHY, INTERACTIVITY, NAVIGATION --- */
+
+/* Fluid container and section layout */
+.container, section {
+  width: 100%;
+  max-width: 1100px;
+  margin: clamp(1rem, 4vw, 3rem) auto;
+  padding: clamp(1rem, 4vw, 2rem);
+  box-sizing: border-box;
+}
+@media (max-width: 600px) {
+  .container, section {
+    padding: 1rem 0.5rem;
+    margin: 1rem 0;
+  }
+}
+@media (min-width: 1200px) {
+  .container, section {
+    padding: 3rem 2rem;
+  }
+}
+
+/* Responsive typography and spacing */
+h1, .hero-title { font-size: clamp(2.2rem, 6vw, 4rem); }
+h2 { font-size: clamp(1.6rem, 4vw, 2.5rem); }
+body, p, li { font-size: clamp(1rem, 2.5vw, 1.125rem); }
+h1, h2, h3, h4, h5, h6, p, ul, ol {
+  margin-bottom: clamp(0.5rem, 2vw, 1.5rem);
+}
+
+/* Touch target and transition standards for all interactive elements */
+a, button, .btn, input[type="submit"] {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+/* Focus-visible accessibility outline */
+*:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 2px;
+}
+
+/* Navigation links: centered, fluid, responsive */
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 1.5rem 1rem;
+  margin: 0;
+}
+@media screen and (min-width: 768px) {
+  .nav-links {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    width: auto;
+    padding: 0;
+  }
+  .nav-item {
+    width: auto;
+    text-align: center;
+  }
+}
+
+.spsmun-footer {
+  background: linear-gradient(120deg, rgba(48,25,52,0.98) 60%, rgba(212,175,55,0.08) 100%);
+  color: var(--text-light);
+  font-family: var(--font-sans);
+  padding: 3rem 1.5rem 2rem 1.5rem;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 -4px 24px #30193422;
+  animation: fadeInFooter 1s ease;
+}
+
+.footer-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  letter-spacing: 0.3px;
+  align-items: center;
+}
+
+.footer-container p {
+  margin: 0;
+  color: var(--accent);
+  font-size: 1rem;
+  opacity: 0.92;
+}
+
+.footer-links {
+  margin-top: 2.2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2.2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.social-icon svg {
+  width: 28px;
+  height: 28px;
+  color: var(--accent-light);
+  transition: transform 0.3s cubic-bezier(.4,2,.6,1), color 0.3s;
+  vertical-align: middle;
+}
+
+.social-icon:focus svg,
+.social-icon:hover svg {
+  transform: scale(1.18) rotate(-8deg);
+  color: var(--light);
+  outline: none;
+}
+
+.back-to-top {
+  color: var(--accent-light);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  border-radius: 1.2rem;
+  padding: 0.4em 1.2em;
+  background: rgba(255,255,255,0.04);
+  box-shadow: 0 2px 8px #d4af3722;
+  transition: background 0.2s, color 0.2s;
+  margin-left: 0.5rem;
+  display: inline-block;
+}
+
+.back-to-top:focus,
+.back-to-top:hover {
+  color: var(--light);
+  background: rgba(212,175,55,0.13);
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .footer-container {
+    font-size: 0.97rem;
+    gap: 0.7rem;
+  }
+  .footer-links {
+    gap: 1.2rem;
+    margin-top: 1.2rem;
+  }
+  .social-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  .back-to-top {
+    font-size: 0.97rem;
+    padding: 0.35em 1em;
+  }
+}
+
+/* Fade-in Animation */
+@keyframes fadeInFooter {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* CTA Buttons for Registration Page */
+.cta-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 2.5rem 0 2rem 0;
+}
+
+.cta-buttons a {
+  display: inline-block;
+  background: linear-gradient(90deg, #301934 60%, #d4af37 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.13rem;
+  padding: 0.85em 2.2em;
+  border-radius: 2em;
+  text-decoration: none;
+  box-shadow: 0 2px 12px #30193422;
+  transition: background 0.18s, color 0.18s, transform 0.13s;
+  letter-spacing: 0.03em;
+  border: none;
+  outline: none;
+}
+
+.cta-buttons a:hover,
+.cta-buttons a:focus {
+  background: linear-gradient(90deg, #d4af37 60%, #301934 100%);
+  color: #301934;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 4px 18px #d4af3722;
+}
+
+@media (max-width: 600px) {
+  .cta-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .cta-buttons a {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0.85em 0;
+  }
+}

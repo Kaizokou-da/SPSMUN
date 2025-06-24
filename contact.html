@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | SPSMUN</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
+  <style>
+    /* Original .main-container was replaced by inline style for .contact-container, so ensuring it's not conflicting */
+    /* .main-container {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    } */
+
+    .contact-form,
+    .map,
+    .contact-info {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form h2,
+    .contact-info h2 {
+      color: #301934;
+      margin-bottom: 1rem;
+    }
+
+    .contact-form label {
+      display: block;
+      margin: 1rem 0 0.25rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .contact-form button {
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+      background: #301934;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background: #d4af37;
+      color: #301934;
+    }
+
+    .map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 12px;
+    }
+
+    .contact-info h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-info p {
+      margin: 0.25rem 0;
+    }
+
+    @media(max-width: 768px) {
+      .main-container { /* If you re-introduce this, adjust its media query */
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 768px) {
+      .contact-info-container {
+        display: none; /* Starts hidden on small screens */
+        flex: 1 1 100%;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-top: 2rem;
+      }
+
+      .info-toggle {
+        display: block !important; /* Force display block on small screens */
+        background: #301934;
+        color: white;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 2rem;
+        transition: background 0.3s ease;
+      }
+
+      .info-toggle:hover {
+        background: #d4af37;
+        color: #301934;
+      }
+    }
+
+    /* Styles for the Toast Notification */
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #301934;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 1rem;
+      position: fixed;
+      z-index: 9999;
+      left: 50%;
+      bottom: 40px;
+      transform: translateX(-50%);
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease, bottom 0.5s ease;
+    }
+
+    /* Ensure your contact-bg.jpg is in an 'assets' folder relative to your HTML */
+    /* Ensure your logo image is in an 'images' folder relative to your HTML */
+
+  </style>
+</head>
+<body>
+  <header class="navbar-wrapper luxury-header">
+  <div class="header-inner" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+    <a href="index.html" class="logo" id="logo-menu" aria-label="Home" style="margin-bottom:1.2rem;">
+      <img src="images/logo 3 backgroundless.png" alt="SPSMUN Logo">
+    </a>
+    <div class="nav-toggle-container" style="position:absolute;top:1.5rem;right:2rem;">
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+    <nav class="main-nav" id="main-nav">
+      <ul class="nav-links">
+        <li class="nav-item has-dropdown">
+          <a href="about.html">About</a>
+          <ul class="dropdown">
+            <li><a href="sec-gen_letter.html">Sec-Gen’s Letter</a></li>
+            <li><a href="secreteriat.html">Secretariat</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="committees.html">Committees</a>
+          <ul class="dropdown">
+            <li><a href="wto.html">WTO</a></li>
+            <li><a href="csw.html">CSW</a></li>
+            <li><a href="unhrc.html">UNHRC</a></li>
+            <li><a href="unsc.html">UNSC</a></li>
+            <li><a href="crisis.html">CRISIS</a></li>
+            <li><a href="loksabha.html">Lok Sabha</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="conference.html">Conference</a>
+          <ul class="dropdown">
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="conference-policies.html">Conference Policies</a></li>
+            <li><a href="journal.html">Journal</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="delegate-resources.html">Delegate Resources</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="registration.html">Apply</a>
+          <ul class="dropdown">
+            <li><a href="form.html">Form 1</a></li>
+            <li><a href="form2.html">Form 2</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <section class="hero" style="background-image: url('https://source.unsplash.com/1600x900/?conference,diplomacy');">
+  <div class="hero-overlay">
+    <h1 class="hero-title">Contact Us</h1>
+    <p class="hero-subtitle"></p>
+  </div>
+</section>
+
+  <section class="contact-container" style="display: flex; flex-wrap: wrap; margin: 4rem auto; max-width: 1200px; gap: 2rem; padding: 0 1rem;">
+  <div class="contact-form-container" style="flex: 1 1 500px; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); padding: 2rem;">
+    <h2 data-aos="fade-up" style="color: #301934; font-size: 2rem;">Send Us a Message</h2>
+    <form id="contactForm"> <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 8px;">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 8px;">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="subject">Subject</label>
+        <select id="subject" name="subject" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 8px;">
+          <option value="General Inquiry">General Inquiry</option>
+          <option value="Registration">Registration</option>
+          <option value="Delegate Information">Delegate Information</option>
+          <option value="School Delegation">School Delegation</option>
+          <option value="Sponsorship">Sponsorship</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required rows="6" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 8px;"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn" style="background: #301934; color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; cursor: pointer; transition: 0.3s;">
+        Send Message
+      </button>
+    </form>
+  </div>
+
+  <div class="info-toggle" onclick="toggleInfo()" style="display: none;">Show Contact Details</div>
+
+
+  <div class="contact-info-container" style="flex: 1 1 400px; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1);">
+    <div class="contact-info-image" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; height: 100%; min-height: 500px; position: relative;">
+      <div class="contact-info-overlay" style="background: rgba(48,25,52,0.85); color: white; padding: 2rem; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+        <div class="info-item" data-aos="fade-left">
+          <h3 style="color: #d4af37;">Contact Information</h3>
+          <p>Email: <a href="mailto:spsmun@spsmun.com" style="color: white;">spsmun@spsmun.com</a></p>
+        </div>
+
+        <div class="info-item" data-aos="fade-left" data-aos-delay="100" style="margin-top: 1.5rem;">
+          <h3 style="color: #d4af37;">Conference Venue</h3>
+          <p>Seshadripuram Public School, Yelahanka</p>
+          <p>KMF Mother Dairy Road, Yelahanka New Town, Bengaluru, Karnataka 560106</p>
+        </div>
+
+        <div class="info-item" data-aos="fade-left" data-aos-delay="200" style="margin-top: 1.5rem;">
+          <h3 style="color: #d4af37;">Student Coordinators</h3>
+          <p>Uthsav<br>📧 uthsav07@gmail.com<br>📞 +91 7019 070 771</p>
+          <p>Anjalika Acharya<br>📧 anjalika.acharya08@gmail.com<br>📞 +91 6364 676 840</p>
+        </div>
+
+        <div class="info-item" data-aos="fade-left" data-aos-delay="300" style="margin-top: 1.5rem;">
+          <h3 style="color: #d4af37;">Teacher Coordinator</h3>
+          <p>Anamika Kumari<br>📞 +91 80886 39460</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="map-section" style="max-width:1200px;margin:2rem auto 0 auto;padding:0 1rem;">
+  <div class="map" style="width:100%;height:350px;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.08);">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3897.858944858637!2d77.5834274!3d13.1009036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae186072402c73%3Af381d5edd660cc5!2sSeshadripuram%20Public%20School%2C%20Yelahanka!5e0!3m2!1sen!2sin!4v1719240000000!5m2!1sen!2sin"
+      width="100%"
+      height="100%"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Seshadripuram Public School, Yelahanka Directions"></iframe>
+  </div>
+  <div style="text-align:center;margin-top:0.7rem;">
+    <a href="https://maps.google.com/maps/dir//Seshadripuram+Public+School+in+Yelahanka+%7C+Montessori,+ICSE,+ISC+KMF+Mother+Dairy+Road,+Yelahanka+Satellite+Town,+Yelahanka+New+Town+Bengaluru,+Karnataka+560106/@13.1009036,77.5834274,18z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3bae186072402c73:0xf381d5edd660cc5"
+      target="_blank"
+      rel="noopener"
+      style="color:#d4af37;font-weight:600;text-decoration:underline;font-size:1.08rem;">
+      Get Directions on Google Maps
+    </a>
+  </div>
+</section>
+
+
+   <!-- Footer Section -->
+<footer class="spsmun-footer">
+  <div class="footer-container">
+    <p>The website is developed and maintained by the students of Seshadripuram Public School, Bangalore.</p>
+    <p>SPSMUN is the proprietary asset of Seshadripuram Public School.</p>
+    <p>© All Rights Reserved</p>
+    
+    <div class="footer-links">
+      <a href="https://www.instagram.com/spsmun/" target="_blank" aria-label="Instagram" class="social-icon">
+        <svg fill="currentColor" viewBox="0 0 24 24" class="instagram-icon" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 2 .2 2.5.4.6.2 1 .5 1.5 1 .5.5.8.9 1 1.5.2.5.3 1.3.4 2.5.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 2-.4 2.5-.2.6-.5 1-1 1.5-.5.5-.9.8-1.5 1-.5.2-1.3.3-2.5.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-2-.2-2.5-.4-.6-.2-1-.5-1.5-1-.5-.5-.8-.9-1-1.5-.2-.5-.3-1.3-.4-2.5C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-2 .4-2.5.2-.6.5-1 1-1.5.5-.5.9-.8 1.5-1 .5-.2 1.3-.3 2.5-.4C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7 0 5.6.1 4.5.3 3.7.6 2.9.9 2.2 1.4 1.5 2.1.8 2.8.3 3.5 0 4.3-.3 5.1-.1 6.2 0 7.5c.1 1.3.1 1.7.1 4.5s0 3.2-.1 4.5c-.1 1.3-.3 2.4-.6 3.2-.3.8-.8 1.5-1.5 2.2-.7.7-1.4 1.2-2.2 1.5-.8.3-1.9.5-3.2.6C1.3 23.9.9 24 .5 24h-.5c0-.3 0-.7.1-1 .1-1.3.1-1.7.1-4.5s0-3.2-.1-4.5C0 12.3-.2 11.2-.5 10.4-.8 9.6-1.3 8.9-2 8.2c-.7-.7-1.4-1.2-2.2-1.5-.8-.3-1.9-.5-3.2-.6C-7.3 5.1-7.7 5-8 5h.5c.3 0 .7.1 1 .1 1.3.1 1.7.1 4.5.1s3.2 0 4.5-.1c1.3-.1 2.4-.3 3.2-.6.8-.3 1.5-.8 2.2-1.5.7-.7 1.2-1.4 1.5-2.2.3-.8.5-1.9.6-3.2C15.7.9 16 .5 16 0h.5c-.3 0-.7.1-1 .1zM12 5.8A6.2 6.2 0 1 0 18.2 12 6.2 6.2 0 0 0 12 5.8zm0 10.2a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.4-11.9a1.44 1.44 0 1 0 1.44 1.44A1.44 1.44 0 0 0 18.4 4.1z"/>
+        </svg>
+      </a>
+      <a href="#" class="back-to-top" aria-label="Back to top">↑ Back to Top</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- AOS Library -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    easing: 'ease-in-out',
+    once: true,
+    mirror: false
+  });
+</script>
+
+<!-- Enhanced Header Control Script -->
+<script>
+// Controls the header: hamburger, nav backdrop, submenus, shrink on scroll, hide on scroll down
+document.addEventListener('DOMContentLoaded', () => {
+  const navToggle = document.querySelector('.nav-toggle');
+  const mainNav = document.getElementById('main-nav');
+  const navBackdrop = document.getElementById('nav-backdrop');
+  const header = document.querySelector('.luxury-header');
+  const logoAnim = document.querySelector('.logo-anim');
+  let lastScrollTop = 0;
+
+  // Hamburger menu toggle
+  if (navToggle && mainNav && navBackdrop) {
+    navToggle.addEventListener('click', function () {
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !expanded);
+      mainNav.classList.toggle('show');
+      navBackdrop.classList.toggle('show');
+      this.classList.toggle('open');
+      document.body.classList.toggle('menu-open');
+    });
+
+    // Close nav if backdrop is clicked
+    navBackdrop.addEventListener('click', () => {
+      navToggle.setAttribute('aria-expanded', false);
+      mainNav.classList.remove('show');
+      navBackdrop.classList.remove('show');
+      navToggle.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    });
+  }
+
+  // Toggle submenus on mobile: first click opens, second click follows link
+  document.querySelectorAll('.nav-item.has-dropdown > a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      if (window.innerWidth <= 1024) {
+        const parent = this.parentElement;
+        if (!parent.classList.contains('show-sub')) {
+          e.preventDefault();
+          // Close other open submenus (accordion behavior)
+          document.querySelectorAll('.nav-item.has-dropdown.show-sub').forEach(item => {
+            if (item !== parent) item.classList.remove('show-sub');
+          });
+          parent.classList.add('show-sub');
+        }
+      }
+    });
+  });
+
+  // Shrink navbar on scroll
+  if (header) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        header.classList.add('shrink');
+      } else {
+        header.classList.remove('shrink');
+      }
+    });
+  }
+
+  // Hide/show main nav and logo on scroll down/up
+  const mainNavScroll = document.querySelector('.main-nav');
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    if (mainNavScroll) {
+      if (currentScroll > lastScrollTop) {
+        mainNavScroll.classList.add('hidden');
+        if (logoAnim) logoAnim.classList.add('centered', 'hide-title');
+      } else {
+        mainNavScroll.classList.remove('hidden');
+        if (logoAnim) logoAnim.classList.remove('centered', 'hide-title');
+      }
+    }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  });
+});
+</script>
+
+<!-- Scroll Reveal Script -->
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(r => observer.observe(r));
+</script>
+
+<!-- Toast Notification Element -->
+<div id="toast">Message sent! We’ll get back to you shortly.</div>
+
+<!-- Form Submission and Toast Script -->
+<script>
+  // Handles the form submission by opening the user's mail client with pre-filled details
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Get form values
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    // Construct the mailto link
+    const mailto = `mailto:spsmun@spsmun.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\n\n${message}`
+    )}`;
+
+    // Open the user's default mail client
+    window.location.href = mailto;
+  });
+
+  // Toggle info for small screens
+  function toggleInfo() {
+    const info = document.querySelector('.contact-info-container');
+    const toggle = document.querySelector('.info-toggle');
+    if (info.style.display === "none" || !info.style.display || info.style.display === "") {
+      info.style.display = "flex";
+      toggle.textContent = "Hide Contact Details";
+    } else {
+      info.style.display = "none";
+      toggle.textContent = "Show Contact Details";
+    }
+  }
+
+  // Initialize info-toggle display on load
+  window.addEventListener('DOMContentLoaded', () => {
+    const infoContainer = document.querySelector('.contact-info-container');
+    const infoToggle = document.querySelector('.info-toggle');
+
+    if (window.innerWidth <= 768) {
+      infoToggle.style.display = 'block';
+      infoContainer.style.display = 'none';
+    } else {
+      infoToggle.style.display = 'none';
+      infoContainer.style.display = 'flex';
+    }
+  });
+
+  // Listen for resize events
+  window.addEventListener('resize', () => {
+    const infoContainer = document.querySelector('.contact-info-container');
+    const infoToggle = document.querySelector('.info-toggle');
+
+    if (window.innerWidth <= 768) {
+      infoToggle.style.display = 'block';
+      if (infoContainer.style.display !== 'none') {
+        infoContainer.style.display = 'none';
+        infoToggle.textContent = "Show Contact Details";
+      }
+    } else {
+      infoToggle.style.display = 'none';
+      infoContainer.style.display = 'flex';
+    }
+  });
+</script>
+</body>
+</html>

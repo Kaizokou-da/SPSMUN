@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPSMUN | Conference Policies</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <style>
+    /* --- Sensual Purity Inspired Animated Background --- */
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .blur-ball {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      transition: transform 1.2s cubic-bezier(.77,0,.18,1);
+      will-change: transform;
+      mix-blend-mode: lighten;
+    }
+    .blur-ball1 { width: 600px; height: 600px; background: #d4af37; left: -200px; top: -100px;}
+    .blur-ball2 { width: 400px; height: 400px; background: #301934; right: -150px; top: 200px;}
+    .blur-ball3 { width: 500px; height: 500px; background: #fff; left: 50vw; top: 60vh; opacity: 0.12;}
+    .bg-gradient-overlay {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: radial-gradient(ellipse at 60% 0%,rgba(186,153,227,0.13) 0%,rgba(48,25,52,0.0) 70%);
+      mix-blend-mode: lighten;
+    }
+
+    /* --- Section Divider --- */
+    .divider {
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, #d4af37 0%, #fff 100%);
+      border-radius: 2px;
+      margin: 3rem auto 2.5rem auto;
+      opacity: 0.7;
+    }
+
+    /* --- Hero & Container Styling --- */
+    .hero {
+      min-height: 48vh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      background: none;
+      padding-top: 7vh;
+      padding-bottom: 5vh;
+    }
+    .hero-overlay {
+      background: rgba(48,25,52,0.65);
+      border-radius: 2rem;
+      padding: 3rem 2rem 2rem 2rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      backdrop-filter: blur(2px);
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5em;
+      text-shadow: 0 2px 24px #30193444;
+    }
+    .hero-subtitle {
+      font-size: 1.35rem;
+      color: #d4af37;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+      text-shadow: 0 2px 16px #30193422;
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      background: rgba(30,18,50,0.85);
+      border-radius: 1.5rem;
+      color: #f0f0f0;
+      max-width: 900px;
+      margin: 4rem auto 2rem auto;
+      padding: 2.5rem 2rem;
+      overflow: hidden;
+      backdrop-filter: blur(2px);
+      transition: box-shadow 0.4s cubic-bezier(.77,0,.18,1), transform 0.5s cubic-bezier(.77,0,.18,1);
+    }
+    .container[data-aos] {
+      opacity: 0;
+      transform: translateY(60px) scale(0.98);
+      transition: opacity 1.2s cubic-bezier(.77,0,.18,1), transform 1.2s cubic-bezier(.77,0,.18,1);
+    }
+    .aos-animate.container[data-aos] {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .container h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+      text-shadow: 0 2px 24px #30193444;
+    }
+    .container h3 {
+      font-size: 1.25rem;
+      font-family: 'Inter', sans-serif;
+      color: #d4af37;
+      margin-top: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .container p, .container ul, .container li {
+      font-size: 1.08rem;
+      line-height: 1.7;
+      font-family: 'Inter', sans-serif;
+    }
+    .container ul {
+      margin: 1rem 0 1rem 2rem;
+      padding-left: 1rem;
+    }
+    .container li {
+      margin-bottom: 0.5rem;
+    }
+    .container hr {
+      border: 0;
+      border-top: 1px solid #d4af37;
+      margin: 2.5rem 0;
+    }
+    .container a {
+      color: #d4af37;
+      text-decoration: underline;
+      transition: color 0.3s;
+    }
+    .container a:hover {
+      color: #fff;
+    }
+    /* Subtle card hover effect */
+    .container:hover {
+      box-shadow: 0 16px 48px 0 rgba(106,13,173,0.18), 0 1.5px 8px 0 rgba(255,255,255,0.07);
+      transform: translateY(-2px) scale(1.012);
+    }
+    @media (max-width: 600px) {
+      .container { padding: 1.2rem 0.5rem; }
+      .hero-title, .container h2 { font-size: 2rem; }
+      .hero-overlay { padding: 2rem 0.5rem 1.5rem 0.5rem; }
+    }
+  </style>
+</head>
+<body class="theme-dark">
+  <div class="animated-bg" aria-hidden="true">
+    <div class="blur-ball blur-ball1"></div>
+    <div class="blur-ball blur-ball2"></div>
+    <div class="blur-ball blur-ball3"></div>
+    <div class="bg-gradient-overlay"></div>
+  </div>
+  <header class="navbar-wrapper luxury-header">
+  <div class="header-inner" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+    <a href="index.html" class="logo" id="logo-menu" aria-label="Home" style="margin-bottom:1.2rem;">
+      <img src="images/logo 3 backgroundless.png" alt="SPSMUN Logo">
+    </a>
+    <div class="nav-toggle-container" style="position:absolute;top:1.5rem;right:2rem;">
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+    <nav class="main-nav" id="main-nav">
+      <ul class="nav-links">
+        <li class="nav-item has-dropdown">
+          <a href="about.html">About</a>
+          <ul class="dropdown">
+            <li><a href="sec-gen_letter.html">Sec-Gen’s Letter</a></li>
+            <li><a href="secreteriat.html">Secretariat</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="committees.html">Committees</a>
+          <ul class="dropdown">
+            <li><a href="wto.html">WTO</a></li>
+            <li><a href="csw.html">CSW</a></li>
+            <li><a href="unhrc.html">UNHRC</a></li>
+            <li><a href="unsc.html">UNSC</a></li>
+            <li><a href="crisis.html">CRISIS</a></li>
+            <li><a href="loksabha.html">Lok Sabha</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="conference.html">Conference</a>
+          <ul class="dropdown">
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="conference-policies.html">Conference Policies</a></li>
+            <li><a href="journal.html">Journal</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="delegate-resources.html">Delegate Resources</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="registration.html">Apply</a>
+          <ul class="dropdown">
+            <li><a href="form.html">Form 1</a></li>
+            <li><a href="form2.html">Form 2</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-overlay" data-aos="fade-up">
+      <h1 class="hero-title">Conference Policies</h1>
+      <p class="hero-subtitle">
+        Code of Conduct &amp; Digital Etiquette Guidelines for SPSMUN
+      </p>
+    </div>
+  </section>
+
+  <section class="container" data-aos="fade-up">
+    <h2>CODE OF CONDUCT</h2>
+    <div class="divider"></div>
+    <p>
+      SPSMUN is committed to creating a conference environment that is safe, inclusive, and respectful for all participants. We expect all attendees, including delegates, advisors, staff, and volunteers, to adhere to the following code of conduct.
+    </p>
+    <h3>Respect and Inclusivity:</h3>
+    <p>
+      At SPSMUN, we value and respect the diversity of our participants. We expect everyone to treat each other with respect, regardless of their background, ethnicity, gender, religion, sexual orientation, or any other characteristic. We foster an inclusive environment where everyone feels valued and heard. Discrimination in any form, including race, religion, nationality, gender, sexual orientation, or disability, will not be tolerated.
+    </p>
+    <h3>Professionalism:</h3>
+    <p>
+      Maintaining professionalism is essential at SPSMUN. We expect all participants to conduct themselves in a professional manner throughout the conference. This includes engaging in constructive and diplomatic dialogue, promoting collaboration and understanding among delegates. Personal attacks, derogatory language, and any form of harassment are strictly prohibited. We uphold the highest standards of ethical behaviour and integrity.
+    </p>
+    <h3>Gender-Based Violence and Harassment:</h3>
+    <p>
+      SPSMUN has a zero-tolerance policy for gender-based violence and harassment. We are committed to creating a safe space for everyone, free from any form of harassment or discrimination. Participants are expected to treat each other with dignity and respect. Any incidents or concerns regarding gender-based violence or harassment should be reported immediately to the designated conference staff, who will handle the situation with utmost sensitivity and confidentiality.
+    </p>
+    <h3>Diversity and Inclusion:</h3>
+    <p>
+      We embrace and celebrate the diversity of our participants. SPSMUN is a platform where individuals from different backgrounds come together to engage in meaningful discussions and foster understanding. We encourage open-mindedness, empathy, and the recognition of the value that diverse perspectives bring to the conference. Discrimination or exclusion based on any personal characteristics is strictly prohibited.
+    </p>
+    <p>
+      Participants who fail to comply with the code of conduct may face appropriate disciplinary action. This can include a verbal warning, removal from committee sessions, or, in severe cases, expulsion from the conference. The severity of the consequences will depend on the nature and frequency of the violation. SPSMUN reserves the right to take necessary measures to ensure the safety and well-being of all participants.
+    </p>
+    <p>
+      By participating in SPSMUN, you agree to abide by this code of conduct and contribute to a positive, respectful, and inclusive conference environment for all attendees.
+    </p>
+
+    <h2 style="margin-top:3rem;">DIGITAL ETIQUETTE GUIDELINES</h2>
+    <div class="divider"></div>
+    <p>
+      At SPSMUN, we recognize the importance of technology in facilitating a productive and engaging conference experience. To ensure responsible and appropriate use of technology during the conference, we have established the following guidelines:
+    </p>
+    <ul>
+      <li>Delegates participating in the SPSMUN conference are required to adhere to the following Digital Etiquette Guidelines:</li>
+      <li>Delegates are permitted to use their gadgets during the conference only when explicitly authorized by the Chair. This ensures that the use of technology remains regulated and aligned with the conference proceedings.</li>
+      <li>Gadgets may be used by delegates to refer to saved materials in offline mode. This allows delegates to access relevant information and resources without requiring an active internet connection.</li>
+      <li>Additional research may be conducted using gadgets, provided the Chair grants permission. Delegates can utilize their devices to gather further information or insights related to their assigned topics during the conference.</li>
+    </ul>
+    <p>
+      It is strictly prohibited to use the internet for any purpose other than research. Delegates are expected to refrain from activities unrelated to their conference responsibilities, such as browsing social media, engaging in personal communication, or accessing non-relevant websites.
+    </p>
+    <p>
+      Please note that the conference organizers will not provide internet. Delegates are responsible for making their own arrangements to ensure connectivity if required.
+    </p>
+    <p>
+      Failure to comply with the above guidelines will result in appropriate consequences, as determined by the conference organizers:
+    </p>
+    <ul>
+      <li>In the event of the first occurrence, the delegate will receive a warning from the Moderator or conference staff.</li>
+      <li>For a second occurrence, the Chair will be notified, indicating the delegate's violation of the code.</li>
+      <li>Subsequent violations will lead to further penalties, which may include temporary suspension of speaking privileges, disqualification from delegate awards, or any other suitable actions deemed necessary.</li>
+    </ul>
+    <p>
+      It is crucial for all delegates to uphold this code of conduct in order to maintain a fair and respectful environment throughout the conference. The use of technology should be limited to research and activities directly related to the conference's agenda, as outlined in the guidelines above.
+    </p>
+  </section>
+
+  <!-- Footer Section -->
+<footer class="spsmun-footer">
+  <div class="footer-container">
+    <p>The website is developed and maintained by the students of Seshadripuram Public School, Bangalore.</p>
+    <p>SPSMUN is the proprietary asset of Seshadripuram Public School.</p>
+    <p>© All Rights Reserved</p>
+    
+    <div class="footer-links">
+      <a href="https://www.instagram.com/spsmun/" target="_blank" aria-label="Instagram" class="social-icon">
+        <svg fill="currentColor" viewBox="0 0 24 24" class="instagram-icon" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 2 .2 2.5.4.6.2 1 .5 1.5 1 .5.5.8.9 1 1.5.2.5.3 1.3.4 2.5.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 2-.4 2.5-.2.6-.5 1-1 1.5-.5.5-.9.8-1.5 1-.5.2-1.3.3-2.5.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-2-.2-2.5-.4-.6-.2-1-.5-1.5-1-.5-.5-.8-.9-1-1.5-.2-.5-.3-1.3-.4-2.5C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-2 .4-2.5.2-.6.5-1 1-1.5.5-.5.9-.8 1.5-1 .5-.2 1.3-.3 2.5-.4C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7 0 5.6.1 4.5.3 3.7.6 2.9.9 2.2 1.4 1.5 2.1.8 2.8.3 3.5 0 4.3-.3 5.1-.1 6.2 0 7.5c.1 1.3.1 1.7.1 4.5s0 3.2-.1 4.5c-.1 1.3-.3 2.4-.6 3.2-.3.8-.8 1.5-1.5 2.2-.7.7-1.4 1.2-2.2 1.5-.8.3-1.9.5-3.2.6C1.3 23.9.9 24 .5 24h-.5c0-.3 0-.7.1-1 .1-1.3.1-1.7.1-4.5s0-3.2-.1-4.5C0 12.3-.2 11.2-.5 10.4-.8 9.6-1.3 8.9-2 8.2c-.7-.7-1.4-1.2-2.2-1.5-.8-.3-1.9-.5-3.2-.6C-7.3 5.1-7.7 5-8 5h.5c.3 0 .7.1 1 .1 1.3.1 1.7.1 4.5.1s3.2 0 4.5-.1c1.3-.1 2.4-.3 3.2-.6.8-.3 1.5-.8 2.2-1.5.7-.7 1.2-1.4 1.5-2.2.3-.8.5-1.9.6-3.2C15.7.9 16 .5 16 0h.5c-.3 0-.7.1-1 .1zM12 5.8A6.2 6.2 0 1 0 18.2 12 6.2 6.2 0 0 0 12 5.8zm0 10.2a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.4-11.9a1.44 1.44 0 1 0 1.44 1.44A1.44 1.44 0 0 0 18.4 4.1z"/>
+        </svg>
+      </a>
+      <a href="#" class="back-to-top" aria-label="Back to top">↑ Back to Top</a>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- AOS JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- Updated Header Control Script -->
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize AOS
+  AOS.init({ duration: 1200, once: true });
+
+  // Parallax blur balls
+  window.addEventListener('scroll', function () {
+    const scrolled = window.scrollY;
+    const b1 = document.querySelector('.blur-ball1');
+    const b2 = document.querySelector('.blur-ball2');
+    const b3 = document.querySelector('.blur-ball3');
+    if (b1) b1.style.transform = `translateY(${scrolled * 0.12}px) scale(1.04)`;
+    if (b2) b2.style.transform = `translateY(${scrolled * -0.08}px) scale(1.02)`;
+    if (b3) b3.style.transform = `translateY(${scrolled * 0.06}px) scale(1.01)`;
+  });
+
+  // Controls the header: hamburger, nav backdrop, submenus, shrink on scroll, hide on scroll down/up
+  const navToggle = document.querySelector('.nav-toggle');
+  const mainNav = document.getElementById('main-nav');
+  const navBackdrop = document.getElementById('nav-backdrop');
+  const header = document.querySelector('.luxury-header');
+  const logoAnim = document.querySelector('.logo-anim');
+  let lastScrollTop = 0;
+
+  // Hamburger menu toggle
+  if (navToggle && mainNav && navBackdrop) {
+    navToggle.addEventListener('click', function () {
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !expanded);
+      mainNav.classList.toggle('show');
+      navBackdrop.classList.toggle('show');
+      this.classList.toggle('open');
+      document.body.classList.toggle('menu-open');
+    });
+
+    // Close nav if backdrop is clicked
+    navBackdrop.addEventListener('click', () => {
+      navToggle.setAttribute('aria-expanded', false);
+      mainNav.classList.remove('show');
+      navBackdrop.classList.remove('show');
+      navToggle.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    });
+  }
+
+  // Toggle submenus on mobile: first click opens, second click follows link
+  document.querySelectorAll('.nav-item.has-dropdown > a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      if (window.innerWidth <= 1024) {
+        const parent = this.parentElement;
+        if (!parent.classList.contains('show-sub')) {
+          e.preventDefault();
+          document.querySelectorAll('.nav-item.has-dropdown.show-sub').forEach(item => {
+            if (item !== parent) item.classList.remove('show-sub');
+          });
+          parent.classList.add('show-sub');
+        }
+      }
+    });
+  });
+
+  // Shrink navbar on scroll
+  if (header) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        header.classList.add('shrink');
+      } else {
+        header.classList.remove('shrink');
+      }
+    });
+  }
+
+  // Hide/show main nav and logo on scroll down/up
+  const mainNavScroll = document.querySelector('.main-nav');
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    if (mainNavScroll) {
+      if (currentScroll > lastScrollTop) {
+        mainNavScroll.classList.add('hidden');
+        if (logoAnim) logoAnim.classList.add('centered', 'hide-title');
+      } else {
+        mainNavScroll.classList.remove('hidden');
+        if (logoAnim) logoAnim.classList.remove('centered', 'hide-title');
+      }
+    }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  });
+});
+  </script>
+
+</body>
+</html>

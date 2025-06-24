@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SPSMUN | Conference</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+  --lux-bg: #18141c;
+  --lux-accent: #d4af37;
+  --lux-light: #fff4e6;
+  --lux-serif: 'Playfair Display', serif;
+  --lux-sans: 'Inter', sans-serif;
+}
+
+body {
+  background: var(--lux-bg);
+  color: var(--lux-light);
+  font-family: var(--lux-sans);
+}
+
+#committees {
+  max-width: 1200px;
+  margin: 4rem auto 2rem auto;
+  padding: 0 2rem;
+}
+
+/* Zig-zag pattern for committee-blocks: image and text alternate sides */
+.committee-block {
+  display: flex;
+  flex-direction: row;
+  background: transparent;
+  border-radius: 2rem;
+  box-shadow: none;
+  margin-bottom: 4rem;
+  min-height: 340px;
+  overflow: visible;
+  border: none;
+  position: relative;
+  z-index: 1;
+}
+
+.committee-left {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(120deg,rgba(24,20,28,0.98) 60%,rgba(212,175,55,0.08) 100%);
+  border-radius: 2rem 0 0 2rem;
+  box-shadow: 0 8px 32px #18141c33;
+  padding: 3.2rem 3rem 3.2rem 2.5rem;
+  margin-right: -2.5rem;
+  z-index: 2;
+  position: relative;
+}
+
+.committee-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  min-width: 0;
+  min-height: 340px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Make committee images use the same aspect ratio as the hero image (16:9) */
+.committee-right img {
+  width: auto;
+  aspect-ratio: auto;
+  height: auto;
+  object-fit: auto;
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px #18141c55, 0 2px 12px #fff4e622;
+  border: 6px solid #fff;
+  background: #fff;
+  transition: filter 0.3s, box-shadow 0.3s;
+  filter: grayscale(0.08) brightness(1.08) contrast(1.08);
+  margin-left: 2.5rem;
+  max-height: 340px;
+  min-height: 180px;
+}
+
+.committee-block:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.committee-block:nth-child(even) .committee-left {
+  border-radius: 0 2rem 2rem 0;
+  margin-left: -2.5rem;
+  margin-right: 0;
+  padding: 3.2rem 2.5rem 3.2rem 3rem;
+}
+
+.committee-block:nth-child(even) .committee-right img {
+  margin-left: 0;
+  margin-right: 2.5rem;
+}
+
+.committee-block:hover .committee-right img {
+  filter: grayscale(0) brightness(1.13) contrast(1.13);
+  box-shadow: 0 16px 48px #d4af3722, 0 2px 12px #fff4e655;
+}
+
+@media (max-width: 900px) {
+  .committee-block,
+  .committee-block:nth-child(even) {
+    flex-direction: column;
+    min-height: 0;
+    margin-bottom: 2.2rem;
+  }
+  .committee-left,
+  .committee-block:nth-child(even) .committee-left {
+    border-radius: 2rem 2rem 0 0 !important;
+    margin: 0 !important;
+    padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+    box-shadow: 0 4px 16px #18141c33;
+  }
+  .committee-right img,
+  .committee-block:nth-child(even) .committee-right img {
+    border-radius: 0 0 2rem 2rem !important;
+    margin: 0 !important;
+    width: auto;
+    aspect-ratio: auto;
+    height: auto;
+    max-height: 220px;
+    min-width: 0;
+    border: 4px solid #fff;
+  }
+}
+  </style>
+</head>
+<body>
+  <header class="navbar-wrapper luxury-header">
+  <div class="header-inner" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+    <a href="index.html" class="logo" id="logo-menu" aria-label="Home" style="margin-bottom:1.2rem;">
+      <img src="images/logo 3 backgroundless.png" alt="SPSMUN Logo">
+    </a>
+    <div class="nav-toggle-container" style="position:absolute;top:1.5rem;right:2rem;">
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+    <nav class="main-nav" id="main-nav">
+      <ul class="nav-links">
+        <li class="nav-item has-dropdown">
+          <a href="about.html">About</a>
+          <ul class="dropdown">
+            <li><a href="sec-gen_letter.html">Sec-Gen’s Letter</a></li>
+            <li><a href="secreteriat.html">Secretariat</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="committees.html">Committees</a>
+          <ul class="dropdown">
+            <li><a href="wto.html">WTO</a></li>
+            <li><a href="csw.html">CSW</a></li>
+            <li><a href="unhrc.html">UNHRC</a></li>
+            <li><a href="unsc.html">UNSC</a></li>
+            <li><a href="crisis.html">CRISIS</a></li>
+            <li><a href="loksabha.html">Lok Sabha</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="conference.html">Conference</a>
+          <ul class="dropdown">
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="conference-policies.html">Conference Policies</a></li>
+            <li><a href="journal.html">Journal</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="delegate-resources.html">Delegate Resources</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown">
+          <a href="registration.html">Apply</a>
+          <ul class="dropdown">
+            <li><a href="form.html">Form 1</a></li>
+            <li><a href="form2.html">Form 2</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <!-- Hero Section -->
+  <section class="hero" style="background-image: url('https://source.unsplash.com/1600x900/?conference,diplomacy');">
+  <div class="hero-overlay">
+    <h1 class="hero-title">Committees at SPSMUN</h1>
+    <p class="hero-subtitle">Explore pressing agendas from global governance to cultural identity.</p>
+  </div>
+</section>
+
+  <section id="committees">
+
+  <div class="committee-block" data-aos="fade-up">
+    <div class="committee-left">
+      <h2 class="committee-heading">WTO</h2>
+      <h3 class="committee-subtitle">Reviewing the Global Trade Impact of United States Tariff Measures with Special Emphasis on Multilateral Economic Stability</h3>
+      <p class="committee-description">
+        The WTO will analyze how recent US tariff policies affect global trade flows, supply chains, and the stability of the multilateral economic order. Delegates will debate the ripple effects on developing and developed economies alike.
+      </p>
+      <a class="committee-link" href="WTO.html">Explore WTO →</a>
+    </div>
+    <div class="committee-right">
+      <img src="images/wto copy.png" alt="WTO Committee">
+    </div>
+  </div>
+
+  <div class="committee-block" data-aos="fade-left">
+    <div class="committee-left">
+      <h2 class="committee-heading">CSW</h2>
+      <h3 class="committee-subtitle">Addressing Online Gender-Based Discrimination and Safeguarding the Digital Rights of Women and Girls</h3>
+      <p class="committee-description">
+        The CSW will confront the growing challenge of online gender-based discrimination, exploring policy solutions to protect the digital rights, privacy, and safety of women and girls in the digital age.
+      </p>
+      <a class="committee-link" href="CSW.html">Explore CSW →</a>
+    </div>
+    <div class="committee-right">
+      <img src="images/csw.jpg" alt="CSW Committee">
+    </div>
+  </div>
+
+  <div class="committee-block" data-aos="fade-right">
+    <div class="committee-left">
+      <h2 class="committee-heading">UNHRC</h2>
+      <h3 class="committee-subtitle">Deliberation on the Human Rights Implications of Artificial Intelligence in State Surveillance and Law Enforcement Practices</h3>
+      <p class="committee-description">
+        UNHRC will debate the ethical and human rights concerns arising from the use of AI in state surveillance and law enforcement, focusing on privacy, discrimination, and accountability in the age of intelligent technologies.
+      </p>
+      <a class="committee-link" href="UNHRC.html">Explore UNHRC →</a>
+    </div>
+    <div class="committee-right">
+      <img src="images/unhrc.jpg" alt="UNHRC Committee">
+    </div>
+  </div>
+
+  <div class="committee-block" data-aos="fade-left">
+    <div class="committee-left">
+      <h2 class="committee-heading">Cabinet Crisis Committee</h2>
+      <h3 class="committee-subtitle">POK (Pakistan Occupied Kashmir) Declares Independence with China's Backing</h3>
+      <p class="committee-description">
+        In a high-stakes scenario, POK declares independence with support from China. Delegates must navigate diplomatic, military, and humanitarian challenges as the crisis rapidly unfolds.
+      </p>
+      <a class="committee-link" href="CRISIS.html">Explore Crisis →</a>
+    </div>
+    <div class="committee-right">
+      <img src="images/crisis.png" alt="Cabinet Crisis Committee">
+    </div>
+  </div>
+
+  <div class="committee-block" data-aos="fade-right">
+    <div class="committee-left">
+      <h2 class="committee-heading">UNSC</h2>
+      <h3 class="committee-subtitle">Reviewing the Legal and Ethical Dimensions of Targeted Assassinations as a Counter-Terrorism Strategy</h3>
+      <p class="committee-description">
+        The UNSC will examine the legality, morality, and effectiveness of targeted assassinations in counter-terrorism, weighing state security against international law and human rights.
+      </p>
+      <a class="committee-link" href="UNSC.html">Explore UNSC →</a>
+    </div>
+    <div class="committee-right">
+      <img src="images/unsc.png" alt="UNSC Committee">
+    </div>
+  </div>
+
+  <div class="committee-block" data-aos="fade-up">
+    <div class="committee-left">
+      <h2 class="committee-heading">Lok Sabha</h2>
+      <h3 class="committee-subtitle">Debating the National Implementation of the Uniform Civil Code</h3>
+      <p class="committee-description">
+        Lok Sabha will engage in a critical debate on the prospects, challenges, and societal impact of implementing a Uniform Civil Code across India, balancing constitutional ideals with cultural diversity.
+      </p>
+      <a class="committee-link" href="LokSabha.html">Explore Lok Sabha →</a>
+    </div>
+    <div class="committee-right">
+      <img src="images/loksabha.jpg" alt="Lok Sabha Committee">
+    </div>
+  </div>
+
+</section>
+
+
+  <!-- Footer Section -->
+<footer class="spsmun-footer">
+  <div class="footer-container">
+    <p>The website is developed and maintained by the students of Seshadripuram Public School, Bangalore.</p>
+    <p>SPSMUN is the proprietary asset of Seshadripuram Public School.</p>
+    <p>© All Rights Reserved</p>
+    
+    <div class="footer-links">
+      <a href="https://www.instagram.com/spsmun/" target="_blank" aria-label="Instagram" class="social-icon">
+        <svg fill="currentColor" viewBox="0 0 24 24" class="instagram-icon" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 2 .2 2.5.4.6.2 1 .5 1.5 1 .5.5.8.9 1 1.5.2.5.3 1.3.4 2.5.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 2-.4 2.5-.2.6-.5 1-1 1.5-.5.5-.9.8-1.5 1-.5.2-1.3.3-2.5.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-2-.2-2.5-.4-.6-.2-1-.5-1.5-1-.5-.5-.8-.9-1-1.5-.2-.5-.3-1.3-.4-2.5C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-2 .4-2.5.2-.6.5-1 1-1.5.5-.5.9-.8 1.5-1 .5-.2 1.3-.3 2.5-.4C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7 0 5.6.1 4.5.3 3.7.6 2.9.9 2.2 1.4 1.5 2.1.8 2.8.3 3.5 0 4.3-.3 5.1-.1 6.2 0 7.5c.1 1.3.1 1.7.1 4.5s0 3.2-.1 4.5c-.1 1.3-.3 2.4-.6 3.2-.3.8-.8 1.5-1.5 2.2-.7.7-1.4 1.2-2.2 1.5-.8.3-1.9.5-3.2.6C1.3 23.9.9 24 .5 24h-.5c0-.3 0-.7.1-1 .1-1.3.1-1.7.1-4.5s0-3.2-.1-4.5C0 12.3-.2 11.2-.5 10.4-.8 9.6-1.3 8.9-2 8.2c-.7-.7-1.4-1.2-2.2-1.5-.8-.3-1.9-.5-3.2-.6C-7.3 5.1-7.7 5-8 5h.5c.3 0 .7.1 1 .1 1.3.1 1.7.1 4.5.1s3.2 0 4.5-.1c1.3-.1 2.4-.3 3.2-.6.8-.3 1.5-.8 2.2-1.5.7-.7 1.2-1.4 1.5-2.2.3-.8.5-1.9.6-3.2C15.7.9 16 .5 16 0h.5c-.3 0-.7.1-1 .1zM12 5.8A6.2 6.2 0 1 0 18.2 12 6.2 6.2 0 0 0 12 5.8zm0 10.2a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.4-11.9a1.44 1.44 0 1 0 1.44 1.44A1.44 1.44 0 0 0 18.4 4.1z"/>
+        </svg>
+      </a>
+      <a href="#" class="back-to-top" aria-label="Back to top">↑ Back to Top</a>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800,
+    once: true
+  });
+</script>
+
+  <!-- AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    easing: 'ease-in-out',
+    once: true, // animation happens once
+    mirror: false
+  });
+</script>
+<script>
+// Controls the header: hamburger, nav backdrop, submenus, shrink on scroll, hide on scroll down 
+document.addEventListener('DOMContentLoaded', () => { 
+  const navToggle = document.querySelector('.nav-toggle'); 
+  const mainNav = document.getElementById('main-nav'); 
+  const navBackdrop = document.getElementById('nav-backdrop'); 
+  const header = document.querySelector('.luxury-header'); 
+  const logoAnim = document.querySelector('.logo-anim'); 
+  let lastScrollTop = 0; 
+
+  // Hamburger menu toggle 
+  if (navToggle && mainNav && navBackdrop) { 
+    navToggle.addEventListener('click', function () { 
+      const expanded = this.getAttribute('aria-expanded') === 'true'; 
+      this.setAttribute('aria-expanded', !expanded); 
+      mainNav.classList.toggle('show'); 
+      navBackdrop.classList.toggle('show'); 
+      this.classList.toggle('open'); 
+      document.body.classList.toggle('menu-open'); 
+    }); 
+
+    // Close nav if backdrop is clicked 
+    navBackdrop.addEventListener('click', () => { 
+      navToggle.setAttribute('aria-expanded', false); 
+      mainNav.classList.remove('show'); 
+      navBackdrop.classList.remove('show'); 
+      navToggle.classList.remove('open'); 
+      document.body.classList.remove('menu-open'); 
+    }); 
+  } 
+
+  // Toggle submenus on mobile 
+  document.querySelectorAll('.nav-item.has-dropdown').forEach(item => { 
+    item.addEventListener('click', function(e) {
+      if (window.innerWidth <= 1024) {
+        if (!item.classList.contains('show-sub')) {
+          e.preventDefault();
+          item.classList.add('show-sub');
+        }
+        // If already open, allow default (navigation)
+      }
+    });
+  }); 
+
+  // Shrink navbar on scroll 
+  if (header) { 
+    window.addEventListener('scroll', () => { 
+      if (window.scrollY > 60) { 
+        header.classList.add('shrink'); 
+      } else { 
+        header.classList.remove('shrink'); 
+      } 
+    }); 
+  } 
+
+  // Hide/show main nav and logo on scroll down/up 
+  const mainNavScroll = document.querySelector('.main-nav'); 
+  window.addEventListener('scroll', () => { 
+    const currentScroll = window.scrollY; 
+    if (mainNavScroll) { 
+      if (currentScroll > lastScrollTop) { 
+        mainNavScroll.classList.add('hidden'); 
+        if (logoAnim) logoAnim.classList.add('centered', 'hide-title'); 
+      } else { 
+        mainNavScroll.classList.remove('hidden'); 
+        if (logoAnim) logoAnim.classList.remove('centered', 'hide-title'); 
+      } 
+    } 
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; 
+  }); 
+});
+</script>
+
+<!-- Scroll Reveal Script -->
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(r => observer.observe(r));
+  </script>
+
+</body>
+</html>
