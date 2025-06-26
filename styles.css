@@ -946,3 +946,38 @@ a, button, .btn, input[type="submit"] {
     padding: 0.85em 0;
   }
 }
+
+/* Contact Form Text Color Customization */
+.contact-form-container,
+.contact-form-container label,
+.contact-form-container input,
+.contact-form-container select,
+.contact-form-container textarea {
+  color: #301934 !important;
+}
+
+.contact-form-container input,
+.contact-form-container select,
+.contact-form-container textarea {
+  background: #f7f5fa;
+  border: 1px solid #d4af37;
+}
+
+.contact-form-container input:focus,
+.contact-form-container select:focus,
+.contact-form-container textarea:focus {
+  border-color: #301934;
+  outline: none;
+  background: #fffbe9;
+  color: #301934;
+}
+
+.contact-form-container label {
+  font-weight: 600;
+  color: #301934 !important;
+}
+
+.contact-form-container ::placeholder {
+  color: #a08bbd;
+  opacity: 1;
+}
