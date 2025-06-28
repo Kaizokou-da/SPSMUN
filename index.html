@@ -166,21 +166,21 @@
   height: 60px;
   background: linear-gradient(90deg, #d4af37 0%, #301934 100%);
   opacity: 0.08;
-  margin: 3rem 0 2rem 0;
+  margin: 2rem 0 1.2rem 0;
   border-radius: 30px;
 }
 
 /* --- TESTIMONIALS CAROUSEL --- */
 .testimonials {
   background: linear-gradient(120deg, #fff8e1 0%, #f3e9f7 100%);
-  padding: 3rem 0;
+  padding: 2rem 0;
   border-radius: 2rem;
-  margin: 20rem 0;
+  margin: 8rem 0;
   max-width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center; /* Center vertically */
-  min-height: 60vh;        /* Ensures vertical centering on most screens */
+  min-height: 40vh;        /* Ensures vertical centering on most screens */
 }
 .testimonials h2 {
   text-align: center;
@@ -415,6 +415,37 @@ a:focus, button:focus {
   opacity: 0;
   pointer-events: none;
 }
+
+/* Reduce gap between sections and section dividers */
+.section-divider {
+  margin: 2rem 0 1.2rem 0;
+}
+
+.section {
+  margin-bottom: 2.2rem;
+  padding-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .section-divider {
+    margin: 1.2rem 0 0.7rem 0;
+  }
+  .section {
+    margin-bottom: 1.2rem;
+  }
+}
+
+/* Reduce padding for testimonials and timeline */
+.testimonials {
+  padding: 2rem 0;
+  margin: 8rem 0;
+  min-height: 40vh;
+}
+
+.timeline-grid {
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+}
   </style>
   <script defer src="script.js"></script>
 </head>
@@ -575,7 +606,7 @@ a:focus, button:focus {
         <div class="timeline-item" data-aos="fade-up">
           <span class="timeline-icon" aria-hidden="true">📄</span>
           <div>
-            <div class="date">July 19<div>
+            <div class="date">July 19</div>
             <div class="content">
               <h3>Registration closes</h3>
               <p>Don't Miss the Oppurtunity</p>
