@@ -549,7 +549,7 @@ a:focus, button:focus {
   <div class="news-ticker" aria-label="Latest Updates">
     <span class="news-label">Latest:</span>
     <marquee behavior="scroll" direction="left" scrollamount="5">
-      Registration closes July 19 • Abstracts due August 1
+       Event Dates have been postponed to 11th and 12th August • Registration closes August 5
     </marquee>
   </div>
 
@@ -606,7 +606,7 @@ a:focus, button:focus {
         <div class="timeline-item" data-aos="fade-up">
           <span class="timeline-icon" aria-hidden="true">📄</span>
           <div>
-            <div class="date">July 19</div>
+            <div class="date">August 5th</div>
             <div class="content">
               <h3>Registration closes</h3>
               <p>Don't Miss the Oppurtunity</p>
@@ -616,7 +616,7 @@ a:focus, button:focus {
         <div class="timeline-item" data-aos="fade-up">
           <span class="timeline-icon" aria-hidden="true">🎉</span>
           <div>
-            <div class="date">August 4th and 5th</div>
+            <div class="date">August 11th and 12th</div>
             <div class="content">
               <h3>Conference Dates</h3>
               <p>Join us for the main event</p>
@@ -814,7 +814,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Countdown timer
   function updateCountdown() {
-    const eventDate = new Date('2025-08-04T09:00:00'); // Changed to 4th August 2025
+    const eventDate = new Date('2025-08-11T09:00:00'); // Changed to 4th August 2025
     const now = new Date();
     const diff = eventDate - now;
     if (diff <= 0) {
@@ -825,7 +825,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hours = Math.floor((diff/(1000*60*60))%24);
     const mins = Math.floor((diff/(1000*60))%60);
     document.getElementById('hero-countdown').textContent =
-      `Conference starts in ${days}d ${hours}h ${mins}m (4th & 5th August)`;
+      `Conference starts in ${days}d ${hours}h ${mins}m (11th & 12th August)`;
   }
   setInterval(updateCountdown, 60000);
   updateCountdown();
