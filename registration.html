@@ -6,6 +6,17 @@
   <title>SPSMUN | Registration</title>
   <link rel="stylesheet" href="styles.css" />
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+@keyframes floatScanner {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+@keyframes fadeInScanner {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+</style>
 </head>
 <body>
 
@@ -112,18 +123,26 @@
 
     <h2 class="section-title">Payment Scanner</h2>
     <p><em>Make the payment before submitting the form. Attach payment receipt screenshot.</em></p>
-    <div style="
+   <div style="
   backdrop-filter: blur(16px);
-  background: rgba(255, 255, 255, 0.05); /* near-black glass */
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 1rem;
   box-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
   padding: 1.5rem;
   max-width: 320px;
   margin: 2rem auto;
-">
-  <img src="scanner.png" alt="Payment Scanner" 
-       style="width: 100%; display: block; border-radius: 0.75rem;" />
+  animation: floatScanner 4s ease-in-out infinite, fadeInScanner 1.2s ease-out;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+"
+  onmouseover="this.style.transform='translateY(-6px) scale(1.02)'; this.style.boxShadow='0 0 25px rgba(212,175,55,0.3), 0 0 8px rgba(255,255,255,0.08)'"
+  onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 40px rgba(0, 0, 0, 0.6)'"
+>
+  <img src="scanner.png" alt="Payment Scanner" style="
+    width: 100%;
+    border-radius: 0.75rem;
+    display: block;
+  " />
 </div>
 
     <p>
